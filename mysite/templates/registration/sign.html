@@ -1,3 +1,4 @@
+
 {% load crispy_forms_tags %}
 
 {% load static %}
@@ -50,31 +51,25 @@
 						    </form>
 				  
 	</div>
-
+	</div>
 </nav>
 
 	<div class="row justify-content-center">
 		<div class="col-6">
 			<div class="card">
 				<div class="card-body">
-			<center><h2>Login</h2></center>
+			<center><h2>Signup</h2></center>
 				<form method="post" novalidate>
 					{% csrf_token %}
 					{{form|crispy}}
-					<center>
-					<button type="submit" class="btn btn-primary">Log in</button>
-					<a href="{% url 'password_reset' %}" class="btn btn-link">Forgot your  password</a>
-				</center>
+					<center><button type="submit" class="btn btn-primary">Signup</button></center>
+					
 				</form>
-				<br>
-		<center>		
-  		<p><strong>-- OR --</strong></p>
-  		
-  		<a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
-  		<a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-		</center>
-		</div>
+			</dir>
 	</div>
+</div>
+</div>
+
 </div>
 </div>
 

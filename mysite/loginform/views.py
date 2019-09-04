@@ -13,10 +13,11 @@ def home(request):
 
 
 
-def index(request):
+def base(request):
     data = {}
     data["crypto_data"] = get_crypto_data()
-    return render(request, "index.html", data)
+    return render(request, "base.html", data)
+
 
 def get_crypto_data():
     api_url = "https://api.coinmarketcap.com/v1/ticker/?limit=8"
@@ -28,7 +29,6 @@ def get_crypto_data():
         data = dict()
 
     return data
-
 
 def bot(request):
 
@@ -50,9 +50,9 @@ def signup(request):
 		form=UserCreationForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect('home')
+			return redirect('base')
 	else:
 		form=UserCreationForm()
-	return render(request,'registration/signup.html',{
+	return render(request,'registration/sign.html',{
 		'form':form
 		})

@@ -6,15 +6,15 @@ from mysite.loginform import views
 from django.conf.urls.static import static
 
 urlpatterns = [
-	path('',views.home,name="home"),
+	#path('',views.home,name="home"),
 
 	path('bot',views.bot,name="bot"),
 	path('finance',views.logo,name="logo"),
 	
-	path('index',views.index,name="index"),
+	path('',views.base,name="base"),
 	path('exchange',views.exchange,name="exchange"),
 	
-	path('signup',views.signup,name="signup"),
+	path('sign/',views.signup,name="sign"),
 	path('^oauth/', include('social_django.urls', namespace='social')),
     path('accounts/',include('django.contrib.auth.urls')),
     
