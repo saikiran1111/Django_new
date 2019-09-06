@@ -26,7 +26,7 @@ def index(request):
 def get_crypto_data():
 	url = 'https://poloniex.com/public?command=returnTradeHistory&currencyPair=BTC_ETH'
 	parameters ={
-		'id':'1'
+		'id':'10'
 	}
 	headers = {
 	  'Accepts': 'application/json',
