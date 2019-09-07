@@ -37,7 +37,29 @@ def get_cryto_data():
         print(e)
         trd = dict()
 
+<<<<<<< HEAD
     return trd
+=======
+def get_crypto_data():
+	url = 'https://poloniex.com/public?command=returnTradeHistory&currencyPair=BTC_ETH'
+	parameters ={
+		'id':'10'
+	}
+	headers = {
+	  'Accepts': 'application/json',
+	  'X-CMC_PRO_API_KEY': 'PE7QD910-N2TDEPAP-LZILGG72-E3ICHKJW',
+	}
+
+	session = Session()
+	session.headers.update(headers)
+
+	try:
+	  response = session.get(url, params=parameters)
+	  data = json.loads(response.text)
+	  return data
+	except (ConnectionError, Timeout, TooManyRedirects) as e:
+	  print(e)
+>>>>>>> 737f163d952d67f0e9c441be48826fbb022947f2
 
 def main(request):
 
