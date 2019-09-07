@@ -1,61 +1,77 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from requests import Request, Session
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+import json
+from django.shortcuts import render,redirect
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm
 import requests
-from requests import Request, Session
-from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-import json
+import requests
 
-def homes(request):
-	
-	return render(request,'homes.html')
-
-
-
-
+def home(request):
+	count =User.objects.count()
+	return render(request,'home.html',{
+		'count':count
+		})
 def index(request):
-    data = {}
-    data["crypto_data"] = get_crypto_data()
-    return render(request, "index.html", data)
+    trd = {}
+    trd["crpto_data"] = get_cryto_data()
+    return render(request, "index.html", trd)
 
 
-def get_crypto_data():
-	url = 'https://poloniex.com/public?command=returnTradeHistory&currencyPair=BTC_ETH'
-	parameters ={
-		'id':'1'
-	}
-	headers = {
-	  'Accepts': 'application/json',
-	  'X-CMC_PRO_API_KEY': 'PE7QD910-N2TDEPAP-LZILGG72-E3ICHKJW',
-	}
 
-	session = Session()
-	session.headers.update(headers)
 
-	try:
-	  response = session.get(url, params=parameters)
-	  data = json.loads(response.text)
-	  return data
-	except (ConnectionError, Timeout, TooManyRedirects) as e:
-	  print(e)
+# return the data received from api as json object
+def get_cryto_data():
+    api_url = "https://api.coinmarketcap.com/v1/ticker/?limit=10"
+
+    try:
+        trd = requests.get(api_url).json()
+    except Exception as e:
+        print(e)
+        trd = dict()
+
+    return trd
 
 def main(request):
 
-	
+
 	return render(request,'main.html')
 
-def home(request):
-	
-	return render(request,'home.html')
+def homes(request):
 
+	return render(request,'homes.html')
 
 def logo(request):
-	
-	return render(request,'logo.html')
+    data = {}
+    data["crypto_data"] = get_crypto_data()
+    return render(request,'logo.html',data)
+
+
+def get_crypto_data():
+    url = 'https://poloniex.com/public?command=returnTradeHistory&currencyPair=BTC_ETH'
+    parameters ={
+        'id':'10'
+        }
+    headers = {
+        'Accepts': 'application/json',
+        'X-CMC_PRO_API_KEY': 'PE7QD910-N2TDEPAP-LZILGG72-E3ICHKJW',
+        }
+    session = Session()
+    session.headers.update(headers)
+    try:
+        response = session.get(url, params=parameters)
+        data = json.loads(response.text)
+        return data
+    except (ConnectionError, Timeout, TooManyRedirects) as e:
+        print(e)
+
 
 def register(request):
     if request.method == 'POST':
@@ -73,6 +89,7 @@ def register(request):
 @login_required
 def profile(request):
     return render(request, 'users/profile.html')
+
 """
 def signup(request):
 	if request.method =='POST':
